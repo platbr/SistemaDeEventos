@@ -13,9 +13,9 @@ import java.util.List;
  * @author alunoinf
  */
 public interface VendaDAO {
-    
     public void salvar(Venda venda);
     public void atualizar(Venda venda);
     public void remover(Venda venda);
     public List<Venda> listar();
+    public Venda getById(Long id);
 }

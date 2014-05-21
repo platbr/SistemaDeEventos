@@ -4,16 +4,18 @@
  */
 package br.ufg.inf.espbd.siseventos.model;
 
-import java.util.Calendar;
-
 /**
  *
  * @author alunoinf
  */
 public class Venda {
-        
+
     private long id;
-    private Calendar data;
+    private java.sql.Timestamp data;
+    private StatusVenda status;
+    private int id_cliente;
+    private int id_operador;
+    private int id_ingresso;
 
     public long getId() {
         return id;
@@ -23,14 +25,44 @@ public class Venda {
         this.id = id;
     }
 
-    public Calendar getData() {
+    public java.sql.Timestamp getData() {
         return data;
     }
 
-    public void setData(Calendar data) {
+    public void setData(java.sql.Timestamp data) {
         this.data = data;
     }
-    
-    
-    
+
+    public StatusVenda getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusVenda status) {
+        this.status = status;
+    }
+
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
+
+    public int getId_operador() {
+        return id_operador;
+    }
+
+    public void setId_operador(int id_operador) {
+        this.id_operador = id_operador;
+    }
+
+    public int getId_ingresso() {
+        return id_ingresso;
+    }
+
+    public void setId_ingresso(int id_ingresso) {
+        this.id_ingresso = id_ingresso;
+    }
+
 }
