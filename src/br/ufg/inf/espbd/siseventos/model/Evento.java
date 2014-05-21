@@ -4,16 +4,14 @@
  */
 package br.ufg.inf.espbd.siseventos.model;
 
-import java.util.Calendar;
-
-
+import java.time.LocalDateTime;
 
 /**
  *
  * @author alunoinf
  */
 public class Evento {
-    
+
     private int id;
     private String nome;
     private LocalDateTime inicio;
@@ -28,8 +26,6 @@ public class Evento {
         this.id = id;
     }
 
-    
-    
     public String getNome() {
         return nome;
     }
@@ -61,7 +57,5 @@ public class Evento {
     public void setLocal(String local) {
         this.local = local;
     }
-    
-    
-    
+
 }

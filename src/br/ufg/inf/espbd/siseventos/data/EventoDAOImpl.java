@@ -7,6 +7,9 @@ package br.ufg.inf.espbd.siseventos.data;
 import br.ufg.inf.espbd.siseventos.data.util.ConnectionFactory;
 import br.ufg.inf.espbd.siseventos.model.Evento;
 import java.sql.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 /**
@@ -33,8 +36,7 @@ public class EventoDAOImpl implements EventoDAO {
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, evento.getNome());
-            ps.set
-            ps.setDate(3,new java.sql.Date(evento.getFim().getTimeInMillis()) );
+
             ps.setString(4, evento.getLocal());
             ps.executeUpdate();
         } catch (SQLException ex) {
