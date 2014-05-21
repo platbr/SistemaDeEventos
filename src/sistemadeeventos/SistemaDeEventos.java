@@ -8,6 +8,8 @@ import br.ufg.inf.espbd.siseventos.data.EventoDAOImpl;
 import br.ufg.inf.espbd.siseventos.model.Evento;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Calendar;
 
 /**
@@ -49,14 +51,15 @@ public class SistemaDeEventos {
                 Evento ev = new Evento();
                 //op.setId(1);
                 ev.setNome("Corrida Maluca");
-                LocalDateTime aberturaDaCopa = LocalDateTime.of(2014, Month.JUNE, 12, 17, 0);
+                LocalDateTime teste = LocalDateTime.of(2014,Month.APRIL, 12, 17, 0);
               
                
-                ev.setInicio(c);
-                c.set(2014, Calendar.DECEMBER, 20, 22, 25, 14);
-                ev.setFim(c);
+                ev.setInicio(teste);
+                
+                ev.setFim(teste);
                 ev.setLocal("Autodromo de Goiania");
-                System.out.println("AQUI " + ev.getInicio().getTime().toString());
+                System.out.println("AQUI " + ev.getInicio());
+                System.out.println("AQUI " + ev.getFim());
                 EventoDAOImpl opimp = new EventoDAOImpl();
                 opimp.salvar(ev);
                 
