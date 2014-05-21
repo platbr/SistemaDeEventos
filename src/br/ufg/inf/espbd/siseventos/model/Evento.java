@@ -4,10 +4,6 @@
  */
 package br.ufg.inf.espbd.siseventos.model;
 
-import java.time.LocalDateTime;
-import java.util.Calendar;
-
-
 
 /**
  *
@@ -17,8 +13,8 @@ public class Evento {
 //teste commit
     private int id;
     private String nome;
-    private LocalDateTime inicio;
-    private LocalDateTime fim;
+    private java.sql.Timestamp inicio;
+    private java.sql.Timestamp fim;
     private String local;
 
     public int getId() {
@@ -29,8 +25,6 @@ public class Evento {
         this.id = id;
     }
 
-    
-    
     public String getNome() {
         return nome;
     }
@@ -39,19 +33,19 @@ public class Evento {
         this.nome = nome;
     }
 
-    public LocalDateTime getInicio() {
+    public java.sql.Timestamp getInicio() {
         return inicio;
     }
 
-    public void setInicio(LocalDateTime inicio) {
+    public void setInicio(java.sql.Timestamp inicio) {
         this.inicio = inicio;
     }
 
-    public LocalDateTime getFim() {
+    public java.sql.Timestamp getFim() {
         return fim;
     }
 
-    public void setFim(LocalDateTime fim) {
+    public void setFim(java.sql.Timestamp fim) {
         this.fim = fim;
     }
 

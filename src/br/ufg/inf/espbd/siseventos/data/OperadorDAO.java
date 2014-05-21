@@ -19,4 +19,5 @@ public interface OperadorDAO {
     public void remover(Operador operador);
     public List<Operador> listar();
     public Operador getByUsuario(String usuario);
+    public Operador getById(String usuario);
 }

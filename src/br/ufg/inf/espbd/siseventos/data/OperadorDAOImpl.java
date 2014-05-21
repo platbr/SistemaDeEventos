@@ -155,4 +155,39 @@ public class OperadorDAOImpl implements OperadorDAO {
             return operador;
         }
     }
+
+    @Override
+    public Operador getById(String id) {
+
+        Operador operador = null;
+        try {
+            conexao = ConnectionFactory.getInstance().getConnection();
+            String sql = "select * from Operador where " + COLUMN_ID + " = ?";
+
+            ps = conexao.prepareStatement(sql);
+
+            ps.setString(1, id);
+            resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                operador = new Operador();
+                operador.setId(resultSet.getInt(COLUMN_ID));
+                operador.setUsuario(resultSet.getString(COLUMN_USUARIO));
+                operador.setSenha(resultSet.getString(COLUMN_SENHA));
+                operador.setNome(resultSet.getString(COLUMN_NOME));
+                operador.setNivelAcesso(NivelAcesso.fromString(resultSet.getString(COLUMN_NIVEL_ACESSO)));
+                // operador.setNivelAcesso();              
+
+            } else {
+
+                throw new RuntimeException("Usuário não encontrado");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao recuperar objeto: "
+                    + ex.getMessage());
+        } catch (RuntimeException ex) {
+            throw new RuntimeException("Erro ao conectar-se ao banco: "
+                    + ex.getMessage());
+        }
+        return operador;
+    }
 }
