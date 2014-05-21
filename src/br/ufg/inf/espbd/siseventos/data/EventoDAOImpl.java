@@ -48,7 +48,24 @@ public class EventoDAOImpl implements EventoDAO {
 
     @Override
     public void atualizar(Evento evento) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            conexao = ConnectionFactory.getInstance().getConnection();
+            String sql = "update Evento set " + COLUMN_NOME + " = ?, " + COLUMN_INICIO + "= ?, " + COLUMN_FIM + "= ?, " + COLUMN_LOCAL + " = ? WHERE " + COLUMN_ID + " = ?";
+            ps = conexao.prepareStatement(sql);
+            System.out.println(sql);
+            ps.setString(1, evento.getNome());
+            ps.setTimestamp(2, evento.getInicio());
+            ps.setTimestamp(3, evento.getFim());
+            ps.setString(4, evento.getLocal());
+            ps.setLong(4, evento.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro " + ex.getSQLState()
+                    + "ao salvar o objeto: " + ex.getLocalizedMessage());
+        } catch (RuntimeException ex) {
+            throw new RuntimeException("Erro ao conectar-se ao banco: "
+                    + ex.getMessage());
+        }
     }
 
     @Override

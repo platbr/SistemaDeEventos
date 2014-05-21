@@ -5,6 +5,7 @@
 package br.ufg.inf.espbd.siseventos.data;
 
 
+import br.ufg.inf.espbd.siseventos.model.StatusVenda;
 import br.ufg.inf.espbd.siseventos.model.Venda;
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface VendaDAO {
     public void remover(Venda venda);
     public List<Venda> listar();
     public Venda getById(Long id);
+    public void alterarStatus(Venda venda, StatusVenda status);
 }

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.19, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.17, for osx10.7 (x86_64)
 --
 -- Host: localhost    Database: eventos
 -- ------------------------------------------------------
--- Server version	5.5.19
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `evento`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `evento` (
   `nome` varchar(40) DEFAULT NULL,
-  `inicio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `inicio` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `fim` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `local` varchar(40) DEFAULT NULL,
   `id` int(5) NOT NULL AUTO_INCREMENT,
@@ -150,7 +150,7 @@ DROP TABLE IF EXISTS `venda`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `venda` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `data` date DEFAULT NULL,
+  `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status_venda` enum('Confirmado','Cancelado') DEFAULT NULL,
   `id_cliente` int(10) DEFAULT NULL,
   `id_operador` int(10) DEFAULT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE `venda` (
   KEY `id_cliente` (`id_cliente`),
   KEY `fk_id_operador` (`id_operador`),
   KEY `fk_id_ingresso` (`id_ingresso`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,6 +168,7 @@ CREATE TABLE `venda` (
 
 LOCK TABLES `venda` WRITE;
 /*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+INSERT INTO `venda` VALUES (1,'2014-05-21 13:57:43','Confirmado',10,10,0),(2,'2014-05-21 13:39:37','Confirmado',1,1,0);
 /*!40000 ALTER TABLE `venda` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -180,4 +181,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-20 22:17:25
+-- Dump completed on 2014-05-21 13:43:47

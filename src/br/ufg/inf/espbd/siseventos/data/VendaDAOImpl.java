@@ -159,5 +159,24 @@ public class VendaDAOImpl implements VendaDAO{
         }
         return venda;
     }
+
+    @Override
+    public void alterarStatus(Venda venda, StatusVenda status) {
+        try {
+            conexao = ConnectionFactory.getInstance().getConnection();
+            String sql = "update Venda set " + COLUMN_STATUS_VENDA + " = ? WHERE " + COLUMN_ID + " = ?";
+            ps = conexao.prepareStatement(sql);
+            System.out.println(sql);
+            ps.setString(1, status.toString());
+            ps.setLong(2, venda.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro " + ex.getSQLState()
+                    + "ao salvar o objeto: " + ex.getLocalizedMessage());
+        } catch (RuntimeException ex) {
+            throw new RuntimeException("Erro ao conectar-se ao banco: "
+                    + ex.getMessage());
+        }
+    }
     
 }
