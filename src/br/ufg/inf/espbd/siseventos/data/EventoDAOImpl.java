@@ -33,9 +33,8 @@ public class EventoDAOImpl implements EventoDAO {
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, evento.getNome());
-            ps.set
-            ps.setDate(3,new java.sql.Date(evento.getFim().getTimeInMillis()) );
-            ps.setString(4, evento.getLocal());
+            ps.setDate(2, Date.valueOf(evento.getInicio().toString()));
+            ps.setDate(3, Date.valueOf(evento.getFim().toString()));
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
