@@ -18,4 +18,5 @@ public interface IngressoDAO {
     public void atualizar(Ingresso ingresso);
     public void remover(Ingresso ingresso);
     public List<Ingresso> listar();
+    public Ingresso getById(Long id);
 }

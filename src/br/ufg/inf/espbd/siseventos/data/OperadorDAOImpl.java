@@ -74,7 +74,6 @@ public class OperadorDAOImpl implements OperadorDAO {
             throw new RuntimeException("Erro ao conectar-se ao banco: "
                     + ex.getMessage());
         }
-
     }
 
     @Override
@@ -99,7 +98,6 @@ public class OperadorDAOImpl implements OperadorDAO {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
             resultSet = s.executeQuery("select * from Operador;");
-
 
             while (resultSet.next()) {
                 Operador operador = new Operador();
@@ -128,7 +126,6 @@ public class OperadorDAOImpl implements OperadorDAO {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             String sql = "select * from Operador where " + COLUMN_USUARIO + " = ?";
-
 
             ps = conexao.prepareStatement(sql);
 

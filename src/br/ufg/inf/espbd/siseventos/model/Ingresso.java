@@ -11,7 +11,7 @@ package br.ufg.inf.espbd.siseventos.model;
 public class Ingresso {
         
     private long id;
-    private String nome;
+    private String numero;
 
     public long getId() {
         return id;
@@ -21,12 +21,12 @@ public class Ingresso {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
     
     
