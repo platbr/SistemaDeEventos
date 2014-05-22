@@ -20,7 +20,7 @@ public class Rotinas {
         IngressoDAO ingDAO = new IngressoDAOImpl();
         for (int i = 1; i <= area.getLotacao(); i++) {
             Ingresso ingresso = new Ingresso();
-            ingresso.setNumero(area.getId_evento() + "-" + area.getId() + "-" + i);
+            ingresso.setNumero("E"+ area.getId_evento() + "A" + area.getId() + "L" + i);
             ingresso.setId_area(area.getId());
             ingDAO.salvar(ingresso);
         }
