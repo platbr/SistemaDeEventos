@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package br.ufg.espbd.siseventos.controller;
+package br.ufg.inf.espbd.siseventos.controller;
 
 import br.ufg.inf.espbd.siseventos.model.Evento;
 

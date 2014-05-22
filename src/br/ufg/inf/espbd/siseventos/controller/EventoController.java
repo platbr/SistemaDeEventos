@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufg.espbd.siseventos.controller;
+package br.ufg.inf.espbd.siseventos.controller;
 
 import br.ufg.inf.espbd.siseventos.data.EventoDAOImpl;
 import br.ufg.inf.espbd.siseventos.data.util.Functions;
 import br.ufg.inf.espbd.siseventos.model.Evento;
-import java.sql.Timestamp;
+import br.ufg.inf.espbdsiseventos.controller.AreaController;
 import javax.swing.JOptionPane;
 
 /**
@@ -61,7 +61,6 @@ public class EventoController extends javax.swing.JFrame {
         jMenu4.setText("jMenu4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(608, 504));
 
         jLabel1.setText("Nome Evento:");
 
