@@ -17,4 +17,5 @@ public interface EventoDAO {
     public void atualizar(Evento evento);
     public void remover(Evento evento);
     public List<Evento> listar();
+    public Evento getById(int id);
 }

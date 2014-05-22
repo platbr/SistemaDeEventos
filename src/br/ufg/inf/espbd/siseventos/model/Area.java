@@ -9,17 +9,25 @@ package br.ufg.inf.espbd.siseventos.model;
  * @author alunoinf
  */
 public class Area {
-
+        private int id;
         private String nome;
         private double valor;
-        private Evento evento;
+        private int id_evento;
 
-    public Evento getEvento() {
-        return evento;
+    public int getId() {
+        return id;
     }
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public int getId_evento() {
+        return id_evento;
+    }
+
+    public void setId_evento(int id_evento) {
+        this.id_evento = id_evento;
     }
         
     

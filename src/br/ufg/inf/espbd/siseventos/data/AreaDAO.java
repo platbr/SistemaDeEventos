@@ -12,9 +12,9 @@ import java.util.List;
  * @author alunoinf
  */
 public interface AreaDAO {
-    
     public void salvar(Area area);
     public void atualizar(Area area);
     public void remover(Area area);
     public List<Area> listar();
+    public Area getById(int id);
 }
