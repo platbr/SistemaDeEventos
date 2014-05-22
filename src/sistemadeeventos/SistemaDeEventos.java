@@ -6,7 +6,9 @@ package sistemadeeventos;
 
 import br.ufg.espbd.siseventos.controller.AreaController;
 import br.ufg.espbd.siseventos.controller.Login;
+import br.ufg.inf.espbd.siseventos.data.AreaDAOImpl;
 import br.ufg.inf.espbd.siseventos.data.VendaDAOImpl;
+import br.ufg.inf.espbd.siseventos.data.util.Rotinas;
 import br.ufg.inf.espbd.siseventos.model.Area;
 import br.ufg.inf.espbd.siseventos.model.StatusVenda;
 import br.ufg.inf.espbd.siseventos.model.Venda;
@@ -29,18 +31,14 @@ public class SistemaDeEventos {
      */
     public static void main(String[] args) throws SQLException, InterruptedException {
 
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SistemaDeEventos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(SistemaDeEventos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(SistemaDeEventos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(SistemaDeEventos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        new AreaController().setVisible(true);
+        AreaDAOImpl arDAO = new AreaDAOImpl();
+        Area area = new Area();
+        area.setNome("VIP");
+        area.setValor(100.00f);
+        area.setId_evento(1);
+        area.setLotacao(50);
+        arDAO.salvar(area);
+        Rotinas.gerarIngressos(area);
 
     }
 }
