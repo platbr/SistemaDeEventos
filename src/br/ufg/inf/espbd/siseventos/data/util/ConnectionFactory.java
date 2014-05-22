@@ -20,9 +20,12 @@ public class ConnectionFactory {
     private Connection conexao;
 
     private ConnectionFactory() throws SQLException {
-
-            conexao =  DriverManager.getConnection("jdbc:mysql://localhost/eventos","root","root");  
-
+        try {  
+            Class.forName("org.sqlite.JDBC");
+            conexao =  DriverManager.getConnection("jdbc:sqlite:sql/eventos.db");  
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
 
