@@ -13,6 +13,15 @@ public class Area {
         private String nome;
         private double valor;
         private int id_evento;
+        private int lotacao;
+
+    public int getLotacao() {
+        return lotacao;
+    }
+
+    public void setLotacao(int lotacao) {
+        this.lotacao = lotacao;
+    }
 
     public int getId() {
         return id;
@@ -30,8 +39,6 @@ public class Area {
         this.id_evento = id_evento;
     }
         
-    
-
     public String getNome() {
         return nome;
     }

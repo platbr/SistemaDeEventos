@@ -20,6 +20,7 @@ public class AreaDAOImpl implements AreaDAO {
     private final String COLUMN_NOME = "nome";
     private final String COLUMN_VALOR = "valor";
     private final String COLUMN_ID_EVENTO = "id_evento";
+    private final String COLUMN_LOTACAO = "lotacao";
 
     Connection conexao;
     PreparedStatement ps;
@@ -30,12 +31,13 @@ public class AreaDAOImpl implements AreaDAO {
     public void salvar(Area area) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Area (" + COLUMN_NOME + " , " + COLUMN_VALOR + " , " + COLUMN_ID_EVENTO + ") VALUES(?,?,?)";
+            String sql = "INSERT INTO Area (" + COLUMN_NOME + " , " + COLUMN_VALOR + " , " + COLUMN_ID_EVENTO + " , " + COLUMN_LOTACAO + ") VALUES(?,?,?,?)";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, area.getNome());
             ps.setDouble(2, area.getValor());
             ps.setInt(3, area.getId_evento());
+            ps.setInt(4, area.getLotacao());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -50,13 +52,14 @@ public class AreaDAOImpl implements AreaDAO {
     public void atualizar(Area area) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Area set " + COLUMN_NOME + " = ?, " + COLUMN_VALOR + "= ?, " + COLUMN_ID_EVENTO + "= ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update Area set " + COLUMN_NOME + " = ?, " + COLUMN_VALOR + "= ?, " + COLUMN_ID_EVENTO + "= ?, " + COLUMN_LOTACAO + "= ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, area.getNome());
             ps.setDouble(2, area.getValor());
             ps.setLong(3, area.getId_evento());
-            ps.setInt(4, area.getId());
+            ps.setInt(4, area.getLotacao());
+            ps.setInt(5, area.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -98,6 +101,7 @@ public class AreaDAOImpl implements AreaDAO {
                 area.setNome(resultSet.getString(COLUMN_NOME));
                 area.setValor(resultSet.getDouble(COLUMN_VALOR));
                 area.setId_evento(resultSet.getInt(COLUMN_ID_EVENTO));
+                area.setLotacao(resultSet.getInt(COLUMN_LOTACAO));
                 areas.add(area);
             }
         } catch (SQLException ex) {
@@ -125,6 +129,7 @@ public class AreaDAOImpl implements AreaDAO {
                 area.setNome(resultSet.getString(COLUMN_NOME));
                 area.setValor(resultSet.getDouble(COLUMN_VALOR));
                 area.setId_evento(resultSet.getInt(COLUMN_ID_EVENTO));
+                area.setLotacao(resultSet.getInt(COLUMN_LOTACAO));
             } else {
                 throw new RuntimeException("Area não encontrada");
             }
