@@ -124,7 +124,7 @@ public class IngressoDAOImpl implements IngressoDAO {
                 ingresso.setId(resultSet.getLong(COLUMN_ID));
                 ingresso.setNumero(resultSet.getString(COLUMN_NUMERO));
             } else {
-                throw new RuntimeException("Usuário não encontrado");
+                throw new RuntimeException("Ingresso não encontrado");
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao recuperar objeto: "

@@ -179,7 +179,7 @@ public class OperadorDAOImpl implements OperadorDAO {
 
             } else {
 
-                throw new RuntimeException("Usuário não encontrado");
+                throw new RuntimeException("Operador não encontrado");
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao recuperar objeto: "
