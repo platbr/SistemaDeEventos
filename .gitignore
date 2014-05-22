@@ -1,4 +1,4 @@
 nbproject
-/build/
+build
 build.xml
-/dist/
+dist
