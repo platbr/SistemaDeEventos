@@ -15,7 +15,7 @@ import java.util.List;
  * @author wos
  */
 public class EventoDAOImpl implements EventoDAO {
-
+    private final String TABLE_EVENTO = "evento";
     private final String COLUMN_NOME = "nome";
     private final String COLUMN_INICIO = "inicio";
     private final String COLUMN_FIM = "fim";
@@ -30,7 +30,7 @@ public class EventoDAOImpl implements EventoDAO {
     public void salvar(Evento evento) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO evento (" + COLUMN_NOME + " , " + COLUMN_INICIO + " , " + COLUMN_FIM + " , " + COLUMN_LOCAL + ") VALUES(?,?,?,?)";
+            String sql = "insert into " + TABLE_EVENTO + " (" + COLUMN_NOME + " , " + COLUMN_INICIO + " , " + COLUMN_FIM + " , " + COLUMN_LOCAL + ") VALUES(?,?,?,?)";
             ps = conexao.prepareStatement(sql);
             ps.setString(1, evento.getNome());
             ps.setTimestamp(2, evento.getInicio());
@@ -51,7 +51,7 @@ public class EventoDAOImpl implements EventoDAO {
     public void atualizar(Evento evento) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Evento set " + COLUMN_NOME + " = ?, " + COLUMN_INICIO + "= ?, " + COLUMN_FIM + "= ?, " + COLUMN_LOCAL + " = ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update " + TABLE_EVENTO + " set " + COLUMN_NOME + " = ?, " + COLUMN_INICIO + "= ?, " + COLUMN_FIM + "= ?, " + COLUMN_LOCAL + " = ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, evento.getNome());
@@ -73,7 +73,7 @@ public class EventoDAOImpl implements EventoDAO {
     public void remover(Evento evento) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "delete from Evento where " + COLUMN_ID + "= ?";
+            String sql = "delete from " + TABLE_EVENTO + " where " + COLUMN_ID + "= ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setInt(1, evento.getId());
@@ -93,7 +93,7 @@ public class EventoDAOImpl implements EventoDAO {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
-            resultSet = s.executeQuery("select * from Ingresso;");
+            resultSet = s.executeQuery("select * from " + TABLE_EVENTO);
             while (resultSet.next()) {
                 Evento evento = new Evento();
                 evento.setId(resultSet.getInt(COLUMN_ID));
@@ -118,7 +118,7 @@ public class EventoDAOImpl implements EventoDAO {
         Evento evento = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Evento where " + COLUMN_ID + " = ?";
+            String sql = "select * from " + TABLE_EVENTO + " where " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             ps.setLong(1, id);
             resultSet = ps.executeQuery();

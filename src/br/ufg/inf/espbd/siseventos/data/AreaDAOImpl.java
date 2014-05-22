@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class AreaDAOImpl implements AreaDAO {
 
+    private final String TABLE_AREA = "area";
     private final String COLUMN_ID = "id";
     private final String COLUMN_NOME = "nome";
     private final String COLUMN_VALOR = "valor";
@@ -31,9 +32,8 @@ public class AreaDAOImpl implements AreaDAO {
     public void salvar(Area area) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Area (" + COLUMN_NOME + " , " + COLUMN_VALOR + " , " + COLUMN_ID_EVENTO + " , " + COLUMN_LOTACAO + ") VALUES(?,?,?,?)";
+            String sql = "insert into " + TABLE_AREA + " (" + COLUMN_NOME + " , " + COLUMN_VALOR + " , " + COLUMN_ID_EVENTO + " , " + COLUMN_LOTACAO + ") VALUES(?,?,?,?)";
             ps = conexao.prepareStatement(sql);
-            System.out.println(sql);
             ps.setString(1, area.getNome());
             ps.setDouble(2, area.getValor());
             ps.setInt(3, area.getId_evento());
@@ -52,7 +52,7 @@ public class AreaDAOImpl implements AreaDAO {
     public void atualizar(Area area) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Area set " + COLUMN_NOME + " = ?, " + COLUMN_VALOR + "= ?, " + COLUMN_ID_EVENTO + "= ?, " + COLUMN_LOTACAO + "= ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update " + TABLE_AREA + " set " + COLUMN_NOME + " = ?, " + COLUMN_VALOR + "= ?, " + COLUMN_ID_EVENTO + "= ?, " + COLUMN_LOTACAO + "= ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, area.getNome());
@@ -74,7 +74,7 @@ public class AreaDAOImpl implements AreaDAO {
     public void remover(Area area) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "delete from Area where " + COLUMN_ID + "= ?";
+            String sql = "delete from " + TABLE_AREA + " where " + COLUMN_ID + "= ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setInt(1, area.getId());
@@ -94,7 +94,7 @@ public class AreaDAOImpl implements AreaDAO {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
-            resultSet = s.executeQuery("select * from Area");
+            resultSet = s.executeQuery("select * from " + TABLE_AREA);
             while (resultSet.next()) {
                 Area area = new Area();
                 area.setId(resultSet.getInt(COLUMN_ID));
@@ -119,7 +119,7 @@ public class AreaDAOImpl implements AreaDAO {
         Area area = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Area where " + COLUMN_ID + " = ?";
+            String sql = "select * from " + TABLE_AREA + " where " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             ps.setLong(1, id);
             resultSet = ps.executeQuery();
@@ -142,5 +142,4 @@ public class AreaDAOImpl implements AreaDAO {
         }
         return area;
     }
-
 }

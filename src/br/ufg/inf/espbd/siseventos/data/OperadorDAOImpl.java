@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class OperadorDAOImpl implements OperadorDAO {
 
+    private final String TABLE_OPERADOR = "operador";
     private final String COLUMN_NOME = "nome";
     private final String COLUMN_USUARIO = "usuario";
     private final String COLUMN_SENHA = "senha";
@@ -35,9 +36,8 @@ public class OperadorDAOImpl implements OperadorDAO {
     public void salvar(Operador operador) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Operador (" + COLUMN_NOME + " , " + COLUMN_USUARIO + " , " + COLUMN_SENHA + " , " + COLUMN_NIVEL_ACESSO + ") VALUES(?,?,?,?)";
+            String sql = "insert into " + TABLE_OPERADOR + " (" + COLUMN_NOME + " , " + COLUMN_USUARIO + " , " + COLUMN_SENHA + " , " + COLUMN_NIVEL_ACESSO + ") VALUES(?,?,?,?)";
             ps = conexao.prepareStatement(sql);
-            System.out.println(sql);
             ps.setString(1, operador.getNome());
             ps.setString(2, operador.getUsuario());
             ps.setString(3, operador.getSenha());
@@ -56,7 +56,7 @@ public class OperadorDAOImpl implements OperadorDAO {
     public void atualizar(Operador operador) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Operador set " + COLUMN_NOME + " = ?, " + COLUMN_USUARIO + "= ?, " + COLUMN_SENHA + "= ?, " + COLUMN_NIVEL_ACESSO + " = ? WHERE " + COLUMN_USUARIO + " = ?";
+            String sql = "update " + TABLE_OPERADOR + " set " + COLUMN_NOME + " = ?, " + COLUMN_USUARIO + "= ?, " + COLUMN_SENHA + "= ?, " + COLUMN_NIVEL_ACESSO + " = ? WHERE " + COLUMN_USUARIO + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, operador.getNome());
@@ -80,13 +80,16 @@ public class OperadorDAOImpl implements OperadorDAO {
     public void remover(Operador operador) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "delete from Operador where " + COLUMN_USUARIO + "= ?";
+            String sql = "delete from " + TABLE_OPERADOR + " where " + COLUMN_USUARIO + "= ?";
             ps = conexao.prepareStatement(sql);
 
             ps.setString(1, operador.getUsuario());
             ps.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException("Erro ao remover objeto: "
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro " + ex.getSQLState()
+                    + "ao salvar o objeto: " + ex.getLocalizedMessage());
+        } catch (RuntimeException ex) {
+            throw new RuntimeException("Erro ao conectar-se ao banco: "
                     + ex.getMessage());
         }
     }
@@ -97,7 +100,7 @@ public class OperadorDAOImpl implements OperadorDAO {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
-            resultSet = s.executeQuery("select * from Operador;");
+            resultSet = s.executeQuery("select * from " + TABLE_OPERADOR);
 
             while (resultSet.next()) {
                 Operador operador = new Operador();
@@ -125,7 +128,7 @@ public class OperadorDAOImpl implements OperadorDAO {
         Operador operador = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Operador where " + COLUMN_USUARIO + " = ?";
+            String sql = "select * from " + TABLE_OPERADOR + " where " + COLUMN_USUARIO + " = ?";
 
             ps = conexao.prepareStatement(sql);
 
@@ -150,10 +153,8 @@ public class OperadorDAOImpl implements OperadorDAO {
         } catch (RuntimeException ex) {
             throw new RuntimeException("Erro ao conectar-se ao banco: "
                     + ex.getMessage());
-        } finally {
-
-            return operador;
         }
+        return operador;
     }
 
     @Override
@@ -162,7 +163,7 @@ public class OperadorDAOImpl implements OperadorDAO {
         Operador operador = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Operador where " + COLUMN_ID + " = ?";
+            String sql = "select * from " + TABLE_OPERADOR + " where " + COLUMN_ID + " = ?";
 
             ps = conexao.prepareStatement(sql);
 

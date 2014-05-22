@@ -20,13 +20,15 @@ public class ConnectionFactory {
     private Connection conexao;
 
     private ConnectionFactory() throws SQLException {
-        try {  
+        try {
             Class.forName("org.sqlite.JDBC");
-            conexao =  DriverManager.getConnection("jdbc:sqlite:sql/eventos.db");  
+            org.sqlite.SQLiteConfig config = new org.sqlite.SQLiteConfig();
+            config.enforceForeignKeys(true);
+            conexao = DriverManager.getConnection("jdbc:sqlite:sql/eventos.db");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
 
     public Connection getConnection() {

@@ -8,7 +8,7 @@ package br.ufg.inf.espbd.siseventos.controller;
 import br.ufg.inf.espbd.siseventos.data.EventoDAOImpl;
 import br.ufg.inf.espbd.siseventos.data.util.Functions;
 import br.ufg.inf.espbd.siseventos.model.Evento;
-import br.ufg.inf.espbdsiseventos.controller.AreaController;
+import br.ufg.inf.espbd.siseventos.controller.AreaController;
 import javax.swing.JOptionPane;
 
 /**

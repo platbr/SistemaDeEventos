@@ -20,7 +20,7 @@ import java.util.List;
  * @author Wagner
  */
 public class IngressoDAOImpl implements IngressoDAO {
-
+    private final String TABLE_INGRESSO = "ingresso";
     private final String COLUMN_NUMERO = "numero";
     private final String COLUMN_ID = "id";
     private final String COLUMN_ID_AREA = "id_area";
@@ -34,9 +34,8 @@ public class IngressoDAOImpl implements IngressoDAO {
     public void salvar(Ingresso ingresso) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Ingresso (" + COLUMN_NUMERO + " , " + COLUMN_ID_AREA + ") VALUES(?,?)";
+            String sql = "insert into " + TABLE_INGRESSO + " (" + COLUMN_NUMERO + " , " + COLUMN_ID_AREA + ") VALUES(?,?)";
             ps = conexao.prepareStatement(sql);
-            System.out.println(sql);
             ps.setString(1, ingresso.getNumero());
             ps.setInt(2, ingresso.getId_area());
             ps.executeUpdate();
@@ -53,7 +52,7 @@ public class IngressoDAOImpl implements IngressoDAO {
     public void atualizar(Ingresso ingresso) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Ingresso set " + COLUMN_NUMERO + " = ?, " + COLUMN_ID_AREA + "= ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update " + TABLE_INGRESSO + " set " + COLUMN_NUMERO + " = ?, " + COLUMN_ID_AREA + "= ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, ingresso.getNumero());
@@ -73,7 +72,7 @@ public class IngressoDAOImpl implements IngressoDAO {
     public void remover(Ingresso ingresso) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "delete from Ingresso where " + COLUMN_ID + "= ?";
+            String sql = "delete from " + TABLE_INGRESSO + " where " + COLUMN_ID + "= ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setLong(1, ingresso.getId());
@@ -93,7 +92,7 @@ public class IngressoDAOImpl implements IngressoDAO {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
-            resultSet = s.executeQuery("select * from Ingresso;");
+            resultSet = s.executeQuery("select * from " + TABLE_INGRESSO);
             while (resultSet.next()) {
                 Ingresso ingresso = new Ingresso();
                 ingresso.setId(resultSet.getLong(COLUMN_ID));
@@ -116,7 +115,7 @@ public class IngressoDAOImpl implements IngressoDAO {
         Ingresso ingresso = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Ingresso where " + COLUMN_ID + " = ?";
+            String sql = "select * from " + TABLE_INGRESSO + " where " + COLUMN_ID + " = ?";
 
             ps = conexao.prepareStatement(sql);
 

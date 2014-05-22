@@ -22,6 +22,7 @@ import java.util.List;
  * @author wagner
  */
 public class VendaDAOImpl implements VendaDAO{
+    private final String TABLE_VENDA = "venda";
     private final String COLUMN_ID = "id";
     private final String COLUMN_DATA = "data";
     private final String COLUMN_STATUS_VENDA = "status_venda";
@@ -38,9 +39,8 @@ public class VendaDAOImpl implements VendaDAO{
     public void salvar(Venda venda) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Venda (" + COLUMN_DATA + " , " + COLUMN_STATUS_VENDA + " , " + COLUMN_ID_CLIENTE + " , " + COLUMN_ID_OPERADOR + " , " + COLUMN_ID_INGRESSO + ") VALUES(?,?,?,?,?)";
+            String sql = "insert into " + TABLE_VENDA + " (" + COLUMN_DATA + " , " + COLUMN_STATUS_VENDA + " , " + COLUMN_ID_CLIENTE + " , " + COLUMN_ID_OPERADOR + " , " + COLUMN_ID_INGRESSO + ") VALUES(?,?,?,?,?)";
             ps = conexao.prepareStatement(sql);
-            System.out.println(sql);
             ps.setTimestamp(1, venda.getData());
             ps.setString(2, venda.getStatus().toString());
             ps.setInt(3, venda.getId_cliente());
@@ -60,7 +60,7 @@ public class VendaDAOImpl implements VendaDAO{
     public void atualizar(Venda venda) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Venda set " + COLUMN_DATA + " = ?, " + COLUMN_STATUS_VENDA + "= ?, " + COLUMN_ID_CLIENTE + "= ?, " + COLUMN_ID_OPERADOR + "= ?, " + COLUMN_ID_INGRESSO + " = ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update " + TABLE_VENDA + " set " + COLUMN_DATA + " = ?, " + COLUMN_STATUS_VENDA + "= ?, " + COLUMN_ID_CLIENTE + "= ?, " + COLUMN_ID_OPERADOR + "= ?, " + COLUMN_ID_INGRESSO + " = ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setTimestamp(1, venda.getData());
@@ -83,7 +83,7 @@ public class VendaDAOImpl implements VendaDAO{
     public void remover(Venda venda) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "delete from Venda where " + COLUMN_ID + "= ?";
+            String sql = "delete from " + TABLE_VENDA + " where " + COLUMN_ID + "= ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setLong(1, venda.getId());
@@ -103,7 +103,7 @@ public class VendaDAOImpl implements VendaDAO{
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
-            resultSet = s.executeQuery("select * from Venda");
+            resultSet = s.executeQuery("select * from " + TABLE_VENDA);
 
             while (resultSet.next()) {
                 Venda venda = new Venda();
@@ -132,7 +132,7 @@ public class VendaDAOImpl implements VendaDAO{
         Venda venda = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Venda where " + COLUMN_ID + " = ?";
+            String sql = "select * from " + TABLE_VENDA + " where " + COLUMN_ID + " = ?";
 
             ps = conexao.prepareStatement(sql);
 
@@ -164,7 +164,7 @@ public class VendaDAOImpl implements VendaDAO{
     public void alterarStatus(Venda venda, StatusVenda status) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Venda set " + COLUMN_STATUS_VENDA + " = ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update " + TABLE_VENDA + " set " + COLUMN_STATUS_VENDA + " = ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, status.toString());

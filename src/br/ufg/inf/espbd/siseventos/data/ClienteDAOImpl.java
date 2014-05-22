@@ -20,21 +20,21 @@ import java.util.List;
  * @author wagner
  */
 public class ClienteDAOImpl implements ClienteDAO {
-
+    private final String TABLE_CLIENTE = "cliente";
     private final String COLUMN_ID = "id";
     private final String COLUMN_NOME = "nome";
+    
     Connection conexao;
     PreparedStatement ps;
     ResultSet resultSet;
     Statement s;
-
+ 
     @Override
     public void salvar(Cliente cliente) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Cliente (" + COLUMN_NOME + ") VALUES(?)";
+            String sql = "insert into " + TABLE_CLIENTE + " (" + COLUMN_NOME + ") VALUES(?)";
             ps = conexao.prepareStatement(sql);
-            System.out.println(sql);
             ps.setString(1, cliente.getNome());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -50,7 +50,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     public void atualizar(Cliente cliente) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Cliente set " + COLUMN_NOME + "= ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update " + TABLE_CLIENTE + " set " + COLUMN_NOME + "= ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, cliente.getNome());
@@ -69,7 +69,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     public void remover(Cliente cliente) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "delete from Cliente where " + COLUMN_ID + "= ?";
+            String sql = "delete from " + TABLE_CLIENTE + " where " + COLUMN_ID + "= ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setInt(1, cliente.getId());
@@ -89,7 +89,7 @@ public class ClienteDAOImpl implements ClienteDAO {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
-            resultSet = s.executeQuery("select * from Cliente");
+            resultSet = s.executeQuery("select * from " + TABLE_CLIENTE);
             while (resultSet.next()) {
                 Cliente cliente = new Cliente();
                 cliente.setId(resultSet.getInt(COLUMN_ID));
@@ -111,7 +111,7 @@ public class ClienteDAOImpl implements ClienteDAO {
         Cliente cliente = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Cliente where " + COLUMN_ID + " = ?";
+            String sql = "select * from " + TABLE_CLIENTE + " where " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             ps.setLong(1, id);
             resultSet = ps.executeQuery();
