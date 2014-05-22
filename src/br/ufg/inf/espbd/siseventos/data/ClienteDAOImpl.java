@@ -1,42 +1,41 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package br.ufg.inf.espbd.siseventos.data;
 
 import br.ufg.inf.espbd.siseventos.data.util.ConnectionFactory;
-import br.ufg.inf.espbd.siseventos.model.Evento;
-import java.sql.*;
+import br.ufg.inf.espbd.siseventos.model.Cliente;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author wos
+ * @author wagner
  */
-public class EventoDAOImpl implements EventoDAO {
+public class ClienteDAOImpl implements ClienteDAO {
 
-    private final String COLUMN_NOME = "nome";
-    private final String COLUMN_INICIO = "inicio";
-    private final String COLUMN_FIM = "fim";
-    private final String COLUMN_LOCAL = "local";
     private final String COLUMN_ID = "id";
+    private final String COLUMN_NOME = "nome";
     Connection conexao;
     PreparedStatement ps;
     ResultSet resultSet;
     Statement s;
 
     @Override
-    public void salvar(Evento evento) {
+    public void salvar(Cliente cliente) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Evento (" + COLUMN_NOME + " , " + COLUMN_INICIO + " , " + COLUMN_FIM + " , " + COLUMN_LOCAL + ") VALUES(?,?,?,?)";
+            String sql = "INSERT INTO Cliente (" + COLUMN_NOME + ") VALUES(?)";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
-            ps.setString(1, evento.getNome());
-            ps.setTimestamp(2, evento.getInicio());
-            ps.setTimestamp(3, evento.getFim());
-            ps.setString(4, evento.getLocal());
+            ps.setString(1, cliente.getNome());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -48,17 +47,14 @@ public class EventoDAOImpl implements EventoDAO {
     }
 
     @Override
-    public void atualizar(Evento evento) {
+    public void atualizar(Cliente cliente) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Evento set " + COLUMN_NOME + " = ?, " + COLUMN_INICIO + "= ?, " + COLUMN_FIM + "= ?, " + COLUMN_LOCAL + " = ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update Cliente set " + COLUMN_NOME + "= ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
-            ps.setString(1, evento.getNome());
-            ps.setTimestamp(2, evento.getInicio());
-            ps.setTimestamp(3, evento.getFim());
-            ps.setString(4, evento.getLocal());
-            ps.setLong(4, evento.getId());
+            ps.setString(1, cliente.getNome());
+            ps.setInt(2, cliente.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -70,13 +66,13 @@ public class EventoDAOImpl implements EventoDAO {
     }
 
     @Override
-    public void remover(Evento evento) {
+    public void remover(Cliente cliente) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "delete from Evento where " + COLUMN_ID + "= ?";
+            String sql = "delete from Cliente where " + COLUMN_ID + "= ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
-            ps.setInt(1, evento.getId());
+            ps.setInt(1, cliente.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -88,20 +84,17 @@ public class EventoDAOImpl implements EventoDAO {
     }
 
     @Override
-    public List<Evento> listar() {
-        List<Evento> eventos = new ArrayList<>();
+    public List<Cliente> listar() {
+        List<Cliente> clientes = new ArrayList<>();
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
             s = conexao.createStatement();
-            resultSet = s.executeQuery("select * from Ingresso;");
+            resultSet = s.executeQuery("select * from Cliente");
             while (resultSet.next()) {
-                Evento evento = new Evento();
-                evento.setId(resultSet.getInt(COLUMN_ID));
-                evento.setNome(resultSet.getString(COLUMN_NOME));
-                evento.setInicio(resultSet.getTimestamp(COLUMN_INICIO));
-                evento.setFim(resultSet.getTimestamp(COLUMN_FIM));
-                evento.setLocal(resultSet.getString(COLUMN_LOCAL));
-                eventos.add(evento);
+                Cliente cliente = new Cliente();
+                cliente.setId(resultSet.getInt(COLUMN_ID));
+                cliente.setNome(resultSet.getString(COLUMN_NOME));
+                clientes.add(cliente);
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao recuperar objeto: "
@@ -110,27 +103,24 @@ public class EventoDAOImpl implements EventoDAO {
             throw new RuntimeException("Erro ao conectar-se ao banco: "
                     + ex.getMessage());
         }
-        return eventos;
+        return clientes;
     }
 
     @Override
-    public Evento getById(int id) {
-        Evento evento = null;
+    public Cliente getById(int id) {
+        Cliente cliente = null;
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "select * from Evento where " + COLUMN_ID + " = ?";
+            String sql = "select * from Cliente where " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             ps.setLong(1, id);
             resultSet = ps.executeQuery();
             if (resultSet.next()) {
-                evento = new Evento();
-                evento.setId(resultSet.getInt(COLUMN_ID));
-                evento.setNome(resultSet.getString(COLUMN_NOME));
-                evento.setInicio(resultSet.getTimestamp(COLUMN_INICIO));
-                evento.setFim(resultSet.getTimestamp(COLUMN_FIM));
-                evento.setLocal(resultSet.getString(COLUMN_LOCAL));
+                cliente = new Cliente();
+                cliente.setId(resultSet.getInt(COLUMN_ID));
+                cliente.setNome(resultSet.getString(COLUMN_NOME));
             } else {
-                throw new RuntimeException("Evento não encontrado");
+                throw new RuntimeException("Area não encontrada");
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao recuperar objeto: "
@@ -139,6 +129,7 @@ public class EventoDAOImpl implements EventoDAO {
             throw new RuntimeException("Erro ao conectar-se ao banco: "
                     + ex.getMessage());
         }
-        return evento;
+        return cliente;
     }
+
 }

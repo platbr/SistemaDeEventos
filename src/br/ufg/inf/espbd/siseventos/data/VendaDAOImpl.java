@@ -148,7 +148,7 @@ public class VendaDAOImpl implements VendaDAO{
                 venda.setId_operador(resultSet.getInt(COLUMN_ID_OPERADOR));
             } else {
 
-                throw new RuntimeException("Usuário não encontrado");
+                throw new RuntimeException("Venda não encontrada");
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao recuperar objeto: "

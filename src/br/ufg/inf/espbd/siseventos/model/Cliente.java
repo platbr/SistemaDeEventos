@@ -10,14 +10,14 @@ package br.ufg.inf.espbd.siseventos.model;
  */
 public class Cliente {
         
-    private String id;
+    private int id;
     private String nome;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
