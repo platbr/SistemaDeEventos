@@ -12,6 +12,15 @@ public class Ingresso {
         
     private long id;
     private String numero;
+    private int id_area;
+
+    public int getId_area() {
+        return id_area;
+    }
+
+    public void setId_area(int id_area) {
+        this.id_area = id_area;
+    }
 
     public long getId() {
         return id;

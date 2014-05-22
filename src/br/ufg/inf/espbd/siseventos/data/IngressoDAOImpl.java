@@ -7,7 +7,6 @@ package br.ufg.inf.espbd.siseventos.data;
 
 import br.ufg.inf.espbd.siseventos.data.util.ConnectionFactory;
 import br.ufg.inf.espbd.siseventos.model.Ingresso;
-import br.ufg.inf.espbd.siseventos.model.NivelAcesso;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +23,7 @@ public class IngressoDAOImpl implements IngressoDAO {
 
     private final String COLUMN_NUMERO = "numero";
     private final String COLUMN_ID = "id";
+    private final String COLUMN_ID_AREA = "id_area";
 
     Connection conexao;
     PreparedStatement ps;
@@ -34,10 +34,11 @@ public class IngressoDAOImpl implements IngressoDAO {
     public void salvar(Ingresso ingresso) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Ingresso (" + COLUMN_NUMERO + ") VALUES(?)";
+            String sql = "INSERT INTO Ingresso (" + COLUMN_NUMERO + " , " + COLUMN_ID_AREA + ") VALUES(?,?)";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, ingresso.getNumero());
+            ps.setInt(2, ingresso.getId_area());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -52,11 +53,12 @@ public class IngressoDAOImpl implements IngressoDAO {
     public void atualizar(Ingresso ingresso) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "update Ingresso set " + COLUMN_NUMERO + " = ? WHERE " + COLUMN_ID + " = ?";
+            String sql = "update Ingresso set " + COLUMN_NUMERO + " = ?, " + COLUMN_ID_AREA + "= ? WHERE " + COLUMN_ID + " = ?";
             ps = conexao.prepareStatement(sql);
             System.out.println(sql);
             ps.setString(1, ingresso.getNumero());
-            ps.setLong(2, ingresso.getId());
+            ps.setInt(2, ingresso.getId_area());
+            ps.setLong(3, ingresso.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -96,6 +98,7 @@ public class IngressoDAOImpl implements IngressoDAO {
                 Ingresso ingresso = new Ingresso();
                 ingresso.setId(resultSet.getLong(COLUMN_ID));
                 ingresso.setNumero(resultSet.getString(COLUMN_NUMERO));
+                ingresso.setId_area(resultSet.getInt(COLUMN_ID_AREA));
                 ingressos.add(ingresso);
             }
         } catch (SQLException ex) {
@@ -123,6 +126,7 @@ public class IngressoDAOImpl implements IngressoDAO {
                 ingresso = new Ingresso();
                 ingresso.setId(resultSet.getLong(COLUMN_ID));
                 ingresso.setNumero(resultSet.getString(COLUMN_NUMERO));
+                ingresso.setId_area(resultSet.getInt(COLUMN_ID_AREA));
             } else {
                 throw new RuntimeException("Ingresso não encontrado");
             }
