@@ -12,7 +12,6 @@ import java.util.List;
  * @author alunoinf
  */
 public interface AreaDAO {
-
     public void salvar(Area area);
     public void atualizar(Area area);
     public void remover(Area area);
