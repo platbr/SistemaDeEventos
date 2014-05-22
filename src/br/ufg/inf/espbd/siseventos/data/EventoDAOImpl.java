@@ -29,15 +29,15 @@ public class EventoDAOImpl implements EventoDAO {
     public void salvar(Evento evento) {
         try {
             conexao = ConnectionFactory.getInstance().getConnection();
-            String sql = "INSERT INTO Evento (" + COLUMN_NOME + " , " + COLUMN_INICIO + " , " + COLUMN_FIM + " , " + COLUMN_LOCAL + ") VALUES(?,?,?,?)";
+            String sql = "INSERT INTO evento (" + COLUMN_NOME + " , " + COLUMN_INICIO + " , " + COLUMN_FIM + " , " + COLUMN_LOCAL + ") VALUES(?,?,?,?)";
             ps = conexao.prepareStatement(sql);
-            System.out.println(sql);
             ps.setString(1, evento.getNome());
             ps.setTimestamp(2, evento.getInicio());
             ps.setTimestamp(3, evento.getFim());
             ps.setString(4, evento.getLocal());
             ps.executeUpdate();
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new RuntimeException("Erro " + ex.getSQLState()
                     + "ao salvar o objeto: " + ex.getLocalizedMessage());
         } catch (RuntimeException ex) {

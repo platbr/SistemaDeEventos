@@ -22,7 +22,7 @@ public class ConnectionFactory {
     private ConnectionFactory() throws SQLException {
         try {  
             Class.forName("org.sqlite.JDBC");
-            conexao =  DriverManager.getConnection("jdbc:sqlite:sistemasdebilhetes.db");  
+            conexao =  DriverManager.getConnection("jdbc:sqlite:sql/sistemasdebilhetes.db");  
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }

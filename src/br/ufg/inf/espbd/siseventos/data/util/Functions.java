@@ -33,9 +33,8 @@ public class Functions {
 
     public static Timestamp strToTimeStamp(String data) {
         try {
-            String oldstring = "2011-01-18 00:00:00.0";
-            Timestamp date = (Timestamp) new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(oldstring);
-            return date;
+            Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(data);
+            return new java.sql.Timestamp( date.getTime());
         } catch (Exception ex) {
             Logger.getLogger(Functions.class.getName()).log(Level.SEVERE, null, ex);
             return null;
