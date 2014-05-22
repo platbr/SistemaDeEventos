@@ -12,14 +12,14 @@ public class Area {
 
         private String nome;
         private double valor;
-        private Evento evento;
+        private int id_evento;
 
-    public Evento getEvento() {
-        return evento;
+    public int getId_evento() {
+        return id_evento;
     }
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+    public void setId_evento(int id_evento) {
+        this.id_evento = id_evento;
     }
         
     

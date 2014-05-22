@@ -7,6 +7,7 @@ package br.ufg.inf.espbd.siseventos.data;
 import br.ufg.inf.espbd.siseventos.data.util.ConnectionFactory;
 import br.ufg.inf.espbd.siseventos.model.Evento;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,11 +71,74 @@ public class EventoDAOImpl implements EventoDAO {
 
     @Override
     public void remover(Evento evento) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            conexao = ConnectionFactory.getInstance().getConnection();
+            String sql = "delete from Evento where " + COLUMN_ID + "= ?";
+            ps = conexao.prepareStatement(sql);
+            System.out.println(sql);
+            ps.setInt(1, evento.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro " + ex.getSQLState()
+                    + "ao salvar o objeto: " + ex.getLocalizedMessage());
+        } catch (RuntimeException ex) {
+            throw new RuntimeException("Erro ao conectar-se ao banco: "
+                    + ex.getMessage());
+        }
     }
 
     @Override
     public List<Evento> listar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Evento> eventos = new ArrayList<>();
+        try {
+            conexao = ConnectionFactory.getInstance().getConnection();
+            s = conexao.createStatement();
+            resultSet = s.executeQuery("select * from Ingresso;");
+            while (resultSet.next()) {
+                Evento evento = new Evento();
+                evento.setId(resultSet.getInt(COLUMN_ID));
+                evento.setNome(resultSet.getString(COLUMN_NOME));
+                evento.setInicio(resultSet.getTimestamp(COLUMN_INICIO));
+                evento.setFim(resultSet.getTimestamp(COLUMN_FIM));
+                evento.setLocal(resultSet.getString(COLUMN_LOCAL));
+                eventos.add(evento);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao recuperar objeto: "
+                    + ex.getMessage());
+        } catch (RuntimeException ex) {
+            throw new RuntimeException("Erro ao conectar-se ao banco: "
+                    + ex.getMessage());
+        }
+        return eventos;
+    }
+
+    @Override
+    public Evento getById(int id) {
+        Evento evento = null;
+        try {
+            conexao = ConnectionFactory.getInstance().getConnection();
+            String sql = "select * from Evento where " + COLUMN_ID + " = ?";
+            ps = conexao.prepareStatement(sql);
+            ps.setLong(1, id);
+            resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                evento = new Evento();
+                evento.setId(resultSet.getInt(COLUMN_ID));
+                evento.setNome(resultSet.getString(COLUMN_NOME));
+                evento.setInicio(resultSet.getTimestamp(COLUMN_INICIO));
+                evento.setFim(resultSet.getTimestamp(COLUMN_FIM));
+                evento.setLocal(resultSet.getString(COLUMN_LOCAL));
+            } else {
+                throw new RuntimeException("Usuário não encontrado");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao recuperar objeto: "
+                    + ex.getMessage());
+        } catch (RuntimeException ex) {
+            throw new RuntimeException("Erro ao conectar-se ao banco: "
+                    + ex.getMessage());
+        }
+        return evento;
     }
 }

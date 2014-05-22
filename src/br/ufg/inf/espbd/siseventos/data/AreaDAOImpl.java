@@ -34,7 +34,7 @@ public class AreaDAOImpl implements AreaDAO{
             System.out.println(sql);
             ps.setString(1, area.getNome());
             ps.setDouble(2, area.getValor());
-            ps.setInt(3, area.getEvento().getId());
+            ps.setInt(3, area.getId_evento());
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro " + ex.getSQLState()
@@ -57,6 +57,11 @@ public class AreaDAOImpl implements AreaDAO{
 
     @Override
     public List<Area> listar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Area getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -17,4 +17,5 @@ public interface ClienteDAO {
     public void atualizar(Cliente cliente);
     public void remover(Cliente cliente);
     public List<Cliente> listar();
+    public Cliente getById(int id);
 }
