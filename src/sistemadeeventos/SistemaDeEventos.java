@@ -5,6 +5,7 @@
 package sistemadeeventos;
 
 import br.ufg.espbd.siseventos.controller.AreaController;
+import br.ufg.espbd.siseventos.controller.EventoController;
 import br.ufg.espbd.siseventos.controller.Login;
 import br.ufg.inf.espbd.siseventos.data.VendaDAOImpl;
 import br.ufg.inf.espbd.siseventos.model.Area;
@@ -40,7 +41,7 @@ public class SistemaDeEventos {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(SistemaDeEventos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new AreaController().setVisible(true);
+        new EventoController().setVisible(true);
 
     }
 }
